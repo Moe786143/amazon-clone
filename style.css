@@ -64,6 +64,40 @@ body.dark-mode input {
   border-color: #555;
 }
 
+/* ===== DARK MODE TOGGLE ANIMATION ===== */
+#darkModeBtn {
+  transition: transform 0.4s ease, background 0.3s;
+  transform-origin: center;
+}
+
+#darkModeBtn.rotating {
+  transform: rotate(360deg);
+}
+
+/* ===== TOAST NOTIFICATION ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--amazon-dark);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border: 1px solid var(--amazon-orange);
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
 /* ===== NAVBAR ===== */
 .navbar {
   background: var(--amazon-dark);

@@ -62,31 +62,61 @@ const recommendedSection = document.getElementById('recommendedSection');
 const recommendedGrid = document.getElementById('recommendedGrid');
 const sectionTitle = document.getElementById('sectionTitle');
 
-// ===== DARK MODE =====
+// ===== TOAST NOTIFICATION (Cursor Feature 1) =====
+function showToast(message) {
+  // Remove existing toast if any
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+  });
+
+  // Hide after 2.5 seconds
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+
+// ===== DARK MODE (Cursor Feature 1 - Enhanced) =====
 if (localStorage.getItem('amazonTheme') === 'dark') {
   document.body.classList.add('dark-mode');
   darkModeBtn.innerHTML = '<i class="fa-regular fa-sun"></i>';
 }
 
 darkModeBtn.addEventListener('click', () => {
+  // Add rotation animation
+  darkModeBtn.classList.add('rotating');
+  setTimeout(() => darkModeBtn.classList.remove('rotating'), 400);
+
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
   localStorage.setItem('amazonTheme', isDark ? 'dark' : 'light');
   darkModeBtn.innerHTML = isDark
     ? '<i class="fa-regular fa-sun"></i>'
     : '<i class="fa-regular fa-moon"></i>';
+
+  // Show toast notification
+  showToast(isDark ? '🌙 Dark Mode ON' : '☀️ Dark Mode OFF');
 });
 
 // ===== RENDER PRODUCTS =====
 function getFilteredProducts() {
   let filtered = [...products];
 
-  // Category filter
   if (currentCategory !== 'All') {
     filtered = filtered.filter(p => p.category === currentCategory);
   }
 
-  // Search filter
   if (currentSearch) {
     filtered = filtered.filter(p =>
       p.title.toLowerCase().includes(currentSearch) ||
@@ -94,7 +124,7 @@ function getFilteredProducts() {
     );
   }
 
-  // Price filter (manual feature)
+  // Price filter (manual feature - no AI)
   if (priceFilter !== 'all') {
     const [min, max] = priceFilter.split('-').map(Number);
     filtered = filtered.filter(p => p.price >= min && p.price <= max);
@@ -135,7 +165,7 @@ function renderProducts() {
     productGrid.appendChild(createProductCard(product));
   });
 
-  // Recommended products (same category, not already shown)
+  // Render recommended (Cursor Feature 2)
   renderRecommended(filtered);
 }
 
@@ -182,7 +212,7 @@ function renderStars(rating) {
   return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
 }
 
-// ===== RECOMMENDED PRODUCTS =====
+// ===== RECOMMENDED PRODUCTS (Cursor Feature 2) =====
 function renderRecommended(shownProducts) {
   if (currentCategory === 'All' && !currentSearch) {
     recommendedSection.hidden = true;
@@ -194,6 +224,7 @@ function renderRecommended(shownProducts) {
 
   const recommended = products
     .filter(p => !shownIds.has(p.id) && categories.includes(p.category))
+    .sort((a, b) => b.rating - a.rating)
     .slice(0, 4);
 
   if (recommended.length === 0) {
@@ -354,7 +385,7 @@ document.querySelectorAll('.category-card').forEach(card => {
   });
 });
 
-// ===== FILTERS (manual feature) =====
+// ===== FILTERS (manual feature - no AI) =====
 priceFilterEl.addEventListener('change', () => {
   priceFilter = priceFilterEl.value;
   renderProducts();
@@ -396,13 +427,11 @@ placeOrderBtn.addEventListener('click', () => {
 
   checkoutModal.hidden = true;
 
-  // Generate order number
   const orderId = 'AMZ-' + Math.random().toString(36).substr(2, 9).toUpperCase();
   orderNumber.textContent = orderId;
 
   confirmationModal.hidden = false;
 
-  // Clear cart
   cart = [];
   saveCart();
   updateCartUI();
