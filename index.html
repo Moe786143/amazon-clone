@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Clone</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-logo">
+      <a href="#" id="logoLink">
+        <span class="logo-text">amazon</span>
+        <span class="logo-dot">.clone</span>
+      </a>
+    </div>
+
+    <div class="nav-location">
+      <i class="fa-solid fa-location-dot"></i>
+      <div>
+        <span class="deliver-to">Deliver to</span>
+        <span class="location">South Africa</span>
+      </div>
+    </div>
+
+    <div class="nav-search">
+      <select class="search-category" id="searchCategory">
+        <option>All</option>
+        <option>Electronics</option>
+        <option>Fashion</option>
+        <option>Home</option>
+        <option>Books</option>
+        <option>Sports</option>
+        <option>Beauty</option>
+        <option>Toys</option>
+      </select>
+      <input type="text" id="searchInput" placeholder="Search products..." />
+      <button class="search-btn" id="searchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-btn" id="darkModeBtn" title="Toggle dark mode">
+        <i class="fa-regular fa-moon"></i>
+      </button>
+      <div class="nav-account">
+        <span class="nav-label">Hello, Shahid</span>
+        <span class="nav-value">Account & Lists <i class="fa-solid fa-caret-down"></i></span>
+      </div>
+      <div class="nav-orders">
+        <span class="nav-label">Returns</span>
+        <span class="nav-value">& Orders</span>
+      </div>
+      <div class="nav-cart" id="cartBtn">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cartCount">0</span>
+        <span class="cart-label">Cart</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAV -->
+  <div class="sub-nav">
+    <button class="sub-nav-item active" data-category="All">
+      <i class="fa-solid fa-bars"></i> All
+    </button>
+    <button class="sub-nav-item" data-category="Electronics">Electronics</button>
+    <button class="sub-nav-item" data-category="Fashion">Fashion</button>
+    <button class="sub-nav-item" data-category="Home">Home</button>
+    <button class="sub-nav-item" data-category="Books">Books</button>
+    <button class="sub-nav-item" data-category="Sports">Sports</button>
+    <button class="sub-nav-item" data-category="Beauty">Beauty</button>
+    <button class="sub-nav-item" data-category="Toys">Toys</button>
+  </div>
+
+  <!-- HERO BANNER -->
+  <div class="hero" id="homePage">
+    <div class="hero-content">
+      <p class="hero-tag">New Arrivals</p>
+      <h1>Shop Everything.<br>Delivered Fast.</h1>
+      <p class="hero-sub">Millions of products, unbeatable prices, free delivery on orders over R500.</p>
+      <button class="hero-btn" id="shopNowBtn">Shop Now</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&h=400&fit=crop" alt="Shopping" />
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="categories-section">
+    <h2 class="section-title">Shop by Category</h2>
+    <div class="categories-grid">
+      <div class="category-card" data-category="Electronics">
+        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=300&h=200&fit=crop" alt="Electronics" />
+        <h3>Electronics</h3>
+      </div>
+      <div class="category-card" data-category="Fashion">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=300&h=200&fit=crop" alt="Fashion" />
+        <h3>Fashion</h3>
+      </div>
+      <div class="category-card" data-category="Home">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=200&fit=crop" alt="Home" />
+        <h3>Home & Living</h3>
+      </div>
+      <div class="category-card" data-category="Books">
+        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=300&h=200&fit=crop" alt="Books" />
+        <h3>Books</h3>
+      </div>
+      <div class="category-card" data-category="Sports">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=200&fit=crop" alt="Sports" />
+        <h3>Sports</h3>
+      </div>
+      <div class="category-card" data-category="Beauty">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop" alt="Beauty" />
+        <h3>Beauty</h3>
+      </div>
+      <div class="category-card" data-category="Toys">
+        <img src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=300&h=200&fit=crop" alt="Toys" />
+        <h3>Toys</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SECTION -->
+  <section class="products-section" id="productsSection">
+    <div class="products-header">
+      <h2 class="section-title" id="sectionTitle">Featured Products</h2>
+      <div class="products-controls">
+        <!-- FILTER (manual feature) -->
+        <div class="filter-group">
+          <label>Price Range:</label>
+          <select id="priceFilter">
+            <option value="all">All Prices</option>
+            <option value="0-50">Under R50</option>
+            <option value="50-200">R50 - R200</option>
+            <option value="200-500">R200 - R500</option>
+            <option value="500-9999">Over R500</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Sort By:</label>
+          <select id="sortFilter">
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- RECOMMENDED -->
+  <section class="recommended-section" id="recommendedSection" hidden>
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="product-grid" id="recommendedGrid"></div>
+  </section>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Shopping Cart</h3>
+      <button class="cart-close" id="cartClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal (<span id="cartItemCount">0</span> items):</span>
+        <strong id="cartSubtotal">R0.00</strong>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Checkout</h3>
+        <button class="modal-close" id="closeCheckout">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="checkout-steps">
+          <div class="step active" id="step1">
+            <h4>1. Shipping Information</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstName" placeholder="John" />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastName" placeholder="Doe" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text" id="address" placeholder="123 Main Street" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" id="city" placeholder="Cape Town" />
+              </div>
+              <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" id="postal" placeholder="8001" />
+              </div>
+            </div>
+            <h4 style="margin-top:20px">2. Delivery Option</h4>
+            <div class="delivery-options">
+              <label class="delivery-option">
+                <input type="radio" name="delivery" value="standard" checked />
+                <div>
+                  <strong>Standard Delivery</strong>
+                  <span>5-7 business days — Free</span>
+                </div>
+              </label>
+              <label class="delivery-option">
+                <input type="radio" name="delivery" value="express" />
+                <div>
+                  <strong>Express Delivery</strong>
+                  <span>1-2 business days — R49.99</span>
+                </div>
+              </label>
+            </div>
+            <button class="btn-primary" id="placeOrderBtn">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER CONFIRMATION -->
+  <div class="modal-overlay" id="confirmationModal" hidden>
+    <div class="modal confirmation-modal">
+      <div class="confirmation-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h2>Order Placed!</h2>
+      <p>Thank you for your order. Your items will be delivered soon.</p>
+      <p class="order-number">Order #<span id="orderNumber"></span></p>
+      <button class="btn-primary" id="continueShoppingBtn">Continue Shopping</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
